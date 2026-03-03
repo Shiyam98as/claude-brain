@@ -1,0 +1,11 @@
+{
+  "name": "claude-brain",
+  "description": "Sync and evolve your Claude Code brain across machines. Automatically exports, merges, and applies your accumulated knowledge (memory, skills, agents, rules, settings) across all your development machines via Git.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Eddie Liang",
+    "email": "toroleapinc@gmail.com"
+  },
+  "repository": "https://github.com/toroleapinc/claude-brain",
+  "license": "MIT"
+}

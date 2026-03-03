@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "merge_confidence_threshold": 0.8,
+  "auto_sync": true,
+  "max_memory_lines": 200,
+  "max_merge_log_entries": 200,
+  "max_budget_usd": 0.50,
+  "push_retry_attempts": 3,
+  "push_retry_delay_seconds": 2,
+  "sync_timeout_seconds": 30,
+  "stale_threshold_days": 14
+}
