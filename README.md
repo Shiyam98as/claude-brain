@@ -17,6 +17,16 @@
 
 ---
 
+<p align="center">
+  <a href="https://asciinema.org/a/FS5qulEb6cUJDFzC" target="_blank">
+    <img src="https://asciinema.org/a/FS5qulEb6cUJDFzC.svg" alt="claude-brain demo" width="700">
+  </a>
+  <br>
+  <em>Two commands. Zero daily effort. Works forever.</em>
+</p>
+
+---
+
 ## The Problem
 
 You use Claude Code on multiple machines. Your laptop has learned your coding patterns. Your desktop has custom skills. Your cloud VM has different rules. **None of them talk to each other.**
