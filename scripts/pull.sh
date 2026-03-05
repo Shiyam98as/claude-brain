@@ -148,7 +148,7 @@ if [ -f "$DEFAULTS_FILE" ]; then
   else
     # Calculate days since last evolution
     if command -v date &>/dev/null; then
-      local last_evolved_ts current_ts
+      last_evolved_ts="" current_ts=""
       last_evolved_ts=$(date -d "$last_evolved" +%s 2>/dev/null || date -j -f "%Y-%m-%dT%H:%M:%SZ" "$last_evolved" +%s 2>/dev/null || echo "0")
       current_ts=$(date +%s)
       days_since_evolve=$(( (current_ts - last_evolved_ts) / 86400 ))

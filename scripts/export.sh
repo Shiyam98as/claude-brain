@@ -57,7 +57,8 @@ scan_dir_entries() {
         continue
       fi
       local relpath
-      relpath=$(realpath --relative-to="$dir" "$f" 2>/dev/null || echo "$(basename "$f")")
+      relpath="${f#"$dir"/}"
+      [ "$relpath" = "$f" ] && relpath="$(basename "$f")"
       local hash
       hash=$(file_hash "$f")
       # Use jq -Rs to safely read file content (handles all special chars)

@@ -182,7 +182,7 @@ EOF
 EOF
 
   # Init brain-repo as git repo
-  (cd "$BRAIN_REPO" && git init -q && git config user.email "test@test.com" && git config user.name "Test" && echo '{"entries":[]}' > meta/merge-log.json && git add -A && git commit -q -m "init")
+  (cd "$BRAIN_REPO" && git init -q -b main && git config user.email "test@test.com" && git config user.name "Test" && echo '{"entries":[]}' > meta/merge-log.json && git add -A && git commit -q -m "init")
 
   # Set PLUGIN_ROOT for scripts
   export CLAUDE_PLUGIN_ROOT="$PROJECT_DIR"
@@ -503,7 +503,12 @@ MOCK
 
   (cd "$BRAIN_REPO" && git add -A && git commit -q -m "test snapshot" 2>/dev/null || true)
 
-  # Run pull.sh (with local repo, no remote)
+  # Set up a local bare remote so pull.sh can fetch
+  local bare_remote="$TEST_DIR/remote.git"
+  git clone --bare "$BRAIN_REPO" "$bare_remote" 2>/dev/null || true
+  (cd "$BRAIN_REPO" && git remote remove origin 2>/dev/null || true && git remote add origin "$bare_remote")
+
+  # Run pull.sh
   bash "$PROJECT_DIR/scripts/pull.sh" --quiet 2>/dev/null || true
 
   # Restore real evolve.sh

@@ -238,8 +238,8 @@ import_brain() {
       if [ -f "${CLAUDE_DIR}/keybindings.json" ]; then
         local tmp
         tmp=$(brain_mktemp)
-        # Deep merge keybindings
-        jq -s '.[0] * .[1]' "${CLAUDE_DIR}/keybindings.json" <(echo "$new_keybindings") > "$tmp"
+        # Union keybindings arrays (deduplicate by key+command)
+        jq -s '.[0] + .[1] | unique_by(.key, .command)' "${CLAUDE_DIR}/keybindings.json" <(echo "$new_keybindings") > "$tmp"
         mv "$tmp" "${CLAUDE_DIR}/keybindings.json"
         log_info "Updated: keybindings.json (merged)"
       else
