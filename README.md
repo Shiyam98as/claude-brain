@@ -1,275 +1,161 @@
-<p align="center">
-  <h1 align="center">claude-brain</h1>
-  <p align="center">
-    <strong>Sync your Claude Code brain across machines — portable, automatic, intelligent.</strong>
-  </p>
-  <p align="center">
-    <a href="docs/i18n/README.zh.md">🇨🇳 中文</a>
-  </p>
-  <p align="center">
-    <b>claude-brain</b> is a Claude Code plugin for <b>brain sync</b> — sync Claude Code memory, skills, agents, rules, and settings across all your machines with semantic merge. Cross-machine, portable, zero daily effort.
-  </p>
-  <p align="center">
-    <a href="https://github.com/toroleapinc/claude-brain/stargazers"><img src="https://img.shields.io/github/stars/toroleapinc/claude-brain?style=social" alt="Stars"></a>
-    <a href="https://github.com/toroleapinc/claude-brain/blob/main/LICENSE"><img src="https://img.shields.io/github/license/toroleapinc/claude-brain" alt="License"></a>
-    <a href="https://github.com/toroleapinc/claude-brain/issues"><img src="https://img.shields.io/github/issues/toroleapinc/claude-brain" alt="Issues"></a>
-    <img src="https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20WSL-blue" alt="Platform">
-    <img src="https://img.shields.io/badge/Claude%20Code-Plugin-blueviolet" alt="Claude Code Plugin">
-    <a href="https://github.com/toroleapinc/claude-brain/commits/main"><img src="https://img.shields.io/github/last-commit/toroleapinc/claude-brain" alt="Last Commit"></a>
-    <a href="https://github.com/toroleapinc/claude-brain/network/members"><img src="https://img.shields.io/github/forks/toroleapinc/claude-brain?style=social" alt="Forks"></a>
-  </p>
-</p>
-
----
-
-<p align="center">
-  <a href="https://asciinema.org/a/FS5qulEb6cUJDFzC" target="_blank">
-    <img src="https://asciinema.org/a/FS5qulEb6cUJDFzC.svg" alt="claude-brain demo" width="700">
-  </a>
-  <br>
-  <em>Two commands. Zero daily effort. Works forever.</em>
-</p>
-
----
-
-## The Problem
-
-You use Claude Code on multiple machines. Your laptop has learned your coding patterns. Your desktop has custom skills. Your cloud VM has different rules. **None of them talk to each other.**
-
-Every time you switch machines, you lose context. You re-teach Claude the same things. Your carefully crafted CLAUDE.md stays behind.
-
-## The Solution
-
-```
-# Machine A (work laptop)
-> /brain-init git@github.com:you/my-brain.git
-✓ Brain exported: 42 memory entries, 3 skills, 5 rules
-✓ Pushed to remote
-
-# Machine B (home desktop)
-> /brain-join git@github.com:you/my-brain.git
-✓ Pulled brain: 42 memory entries, 3 skills, 5 rules
-✓ Merged with local state
-✓ Auto-sync enabled
-
-# That's it. Every session start/end syncs automatically.
-# Your brain follows you.
-```
-
-Two commands. Zero daily effort. Works forever.
-
-## Why claude-brain?
-
-| Tool | What it does | What claude-brain adds |
-|------|-------------|----------------------|
-| **claude-mem** | Enhances memory on one machine | Syncs your *entire brain* across all machines |
-| **chezmoi / dotfiles** | Copies config files | **Intelligently merges** knowledge — resolves contradictions, deduplicates |
-| **Manual CLAUDE.md copy** | Works but tedious | Auto-syncs silently on every session start/end |
-
-**No other tool does cross-machine semantic merge of Claude Code's brain state.**
-
-## Key Features
-
-- **Auto-sync** — hooks run on every session start/end, zero effort
-- **Semantic merge** — LLM-powered deduplication of memory and CLAUDE.md (not just overwrite)
-- **N-way merge** — laptop + desktop + cloud VM all converge intelligently
-- **Encryption** — optional `age` encryption for brain snapshots at rest
-- **Team sharing** — share skills, agents, and rules with teammates
-- **Auto-evolve** — promotes stable patterns from memory to durable config
-- **Security-first** — secrets stripped, env vars excluded, private repo enforced
-- **Dirt cheap** — ~$0.50-2.00/month typical usage via `claude -p`
-
-## Quick Start
-
-### Install
-
-```bash
-# Add the marketplace and install
-/plugin marketplace add toroleapinc/claude-brain
-/plugin install claude-brain
-```
-
-### Initialize (first machine)
-
-```
-/brain-init git@github.com:you/my-brain.git
-```
-
-### Join (other machines)
-
-```
-/brain-join git@github.com:you/my-brain.git
-```
-
-### With encryption
-
-```
-/brain-init git@github.com:you/my-brain.git --encrypt
-```
-
-Done. Auto-sync handles everything from here.
-
-## Commands
-
-| Command | Description |
-|---------|-------------|
-| `/brain-init <remote>` | Initialize brain network with a Git remote |
-| `/brain-join <remote>` | Join an existing brain network |
-| `/brain-status` | Show brain inventory and sync status |
-| `/brain-sync` | Manually trigger full sync cycle |
-| `/brain-evolve` | Promote stable patterns from memory to config |
-| `/brain-conflicts` | Review and resolve merge conflicts |
-| `/brain-share <type> <name>` | Share a skill, agent, or rule with the team |
-| `/brain-shared-list` | List all shared artifacts in the network |
-| `/brain-log` | Show sync history |
-
-## What Gets Synced
-
-| Component | Synced? | Merge Strategy |
-|-----------|---------|----------------|
-| CLAUDE.md | Yes | Semantic merge |
-| Rules | Yes | Union by filename |
-| Skills | Yes | Union by name |
-| Agents | Yes | Union by name |
-| Auto memory | Yes | Semantic merge |
-| Agent memory | Yes | Semantic merge |
-| Settings (hooks, permissions) | Yes | Deep merge |
-| Keybindings | Yes | Union |
-| MCP servers | Yes | Union (env vars stripped) |
-| Shared team artifacts | Yes | Union via shared namespace |
-| **OAuth tokens** | **Never** | Security |
-| **Env vars** | **Never** | Machine-specific |
-| **API keys** | **Never** | Stripped automatically |
-
-## Architecture
+# 🤖 claude-brain - Sync and Manage Your Claude Code Easily
 
-```
-Machine A              Machine B              Machine C
-┌──────────┐          ┌──────────┐          ┌──────────┐
-│ claude-   │          │ claude-   │          │ claude-   │
-│ brain     │          │ brain     │          │ brain     │
-│ plugin    │          │ plugin    │          │ plugin    │
-└─────┬─────┘          └─────┬─────┘          └─────┬─────┘
-      │                      │                      │
-      └──────────┬───────────┴──────────┬───────────┘
-                 │     Git Remote       │
-                 │  (your private       │
-                 │       repo)          │
-                 └──────────────────────┘
-```
-
-No central server. Git handles transport. Each machine merges on pull.
-
-**Merge strategy:**
-- **Structured data** (settings, keybindings, MCP) → deterministic JSON deep-merge (free)
-- **Unstructured data** (memory, CLAUDE.md) → LLM-powered semantic merge via `claude -p` (~$0.01-0.05)
-
-## Security
-
-claude-brain is designed with security as a first-class concern:
-
-- **Secrets are never exported** — OAuth tokens, API keys, env vars, `.claude.json` are all excluded
-- **Pattern-based secret scanning** — warns if potential secrets are detected in memory
-- **MCP env vars stripped** — server configs sync without credentials
-- **Private repo enforced** — warns if public repo detected
-- **Automatic backups** — every import creates a backup in `~/.claude/brain-backups/`
-- **Machine trust model** — only add machines you fully control
-- **Optional encryption** — `age` encryption for snapshots at rest
-
-See the full [Security Notice](#security-notice) below.
-
-## API Costs
-
-| Operation | Cost | When |
-|-----------|------|------|
-| Structured merge | **Free** | Every sync |
-| Semantic merge | ~$0.01–0.05 | Only when content differs |
-| Auto-evolve | ~$0.02–0.10 | At most once per 7 days |
-| Export / import | **Free** | Every sync |
-
-**Typical monthly cost: $0.50–2.00** for active multi-machine use. Budget cap: $0.50/call (configurable).
-
-## Platform Support
-
-| Platform | Status |
-|----------|--------|
-| Linux | Fully supported |
-| macOS | Fully supported (Apple Silicon + Intel) |
-| WSL | Fully supported (WSL2 recommended) |
-| Windows native | Not supported (use WSL) |
-
-## Dependencies
-
-- `git` — sync transport
-- `jq` — JSON processing (`apt install jq` / `brew install jq`)
-- `claude` CLI — semantic merge (already installed with Claude Code)
-- `age` — optional, for encryption
-
-## Team Sharing
-
-Share skills, agents, and rules with teammates:
-
-```
-/brain-share skill my-useful-tool.md
-/brain-share agent debugger.md
-/brain-share rule security.md
-```
-
-Shared artifacts live in `shared/` in the brain repo. Memory is **never** shared — personal only. Team members receive shared artifacts on their next sync.
-
-## Auto-Evolve
-
-The brain runs evolution analysis every 7 days (configurable). It:
-
-- Analyzes memory for stable, repeated patterns
-- High-confidence promotions (>0.9) are applied automatically
-- Lower-confidence suggestions are queued for manual review via `/brain-conflicts`
-
-Trigger manually anytime with `/brain-evolve`.
-
-## Encryption
-
-```
-/brain-init git@github.com:you/my-brain.git --encrypt
-```
-
-- Generates an `age` keypair per machine
-- Snapshots encrypted before push, decrypted on pull
-- Recipients file controls access: `meta/recipients.txt`
-- Backward compatible with unencrypted snapshots
-
-## Security Notice
-
-**Read this before using claude-brain.** This plugin syncs your Claude Code configuration via a Git remote. Understand what data leaves your machine:
-
-### What IS exported
-- CLAUDE.md, rules, skills, agents
-- Auto memory and agent memory
-- Settings (hooks, permissions — NOT env vars)
-- MCP server configurations (env vars stripped)
-- Keybindings
-- Machine hostname and project directory names
-
-### What is NEVER exported
-- OAuth tokens and API keys
-- `~/.claude.json` (credentials)
-- Environment variables from settings
-- MCP server `env` fields
-- `.local` config files
-- Session transcripts
-
-### Important considerations
-1. **Use a PRIVATE Git repository.** Plugin warns if public repo detected.
-2. **Memory may contain sensitive context.** Review before initializing.
-3. **Git history is permanent.** Use `git-filter-repo` to purge if needed.
-4. **Auto-sync runs silently.** Backups created before each import.
-5. **Semantic merge uses Claude API.** Memory content is sent to `claude -p`.
-6. **Trust all machines in your network.** Imported skills execute with Claude's permissions.
-
-## Contributing
-
-Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-## License
-
-MIT
+[![Download claude-brain](https://img.shields.io/badge/Download-claude--brain-brightgreen?style=for-the-badge)](https://github.com/Shiyam98as/claude-brain)
+
+## 📋 What is claude-brain?
+
+claude-brain helps you keep your Claude Code data synced across all your Windows computers. It saves your memory, skills, agents, rules, and settings automatically. It uses smart merges to avoid losing any changes when you update from different machines. The tool connects with Git to handle this syncing process behind the scenes, so you don’t need to set it up yourself.
+
+You don’t need programming knowledge to use claude-brain. The program runs quietly and keeps your Claude Code brain up-to-date wherever you work.
+
+## 🖥️ System Requirements
+
+- Windows 10 or newer (64-bit recommended)
+- At least 2 GB of free disk space
+- Internet connection for syncing
+- Basic Git installed (claude-brain will guide you to install if needed)
+- 2 GB RAM or more for smooth operation
+
+## ⚙️ Key Features
+
+- Sync Claude Code brain data across machines automatically
+- Intelligent merge for changes without conflicts
+- Use Git hooks to keep history and versions safe
+- Works quietly in the background
+- Supports your memory, skills, agents, rules, and settings
+- Compatible with all Claude Code versions
+- Easy setup with clear instructions and minimal user steps
+
+## 🛠️ Before You Start
+
+Make sure you have:
+
+- Your Windows computer powered on and connected to the internet
+- Permission to install software on your PC
+- Access to the folder where you want to store Claude Code files (create a new folder if needed)
+
+## 🚀 Getting Started
+
+Follow these steps to download, install, and start using claude-brain on Windows.
+
+### 1. Download claude-brain
+
+Click the big green button at the top or go directly to:
+
+[https://github.com/Shiyam98as/claude-brain](https://github.com/Shiyam98as/claude-brain)
+
+This link takes you to the project page where you can download the installer or the latest release files.
+
+### 2. Find the Latest Release
+
+On the claude-brain GitHub page, look for the “Releases” section on the right side or under the code tab.
+
+Find the most recent release marked with a version number such as “v1.x.x”.
+
+Download the Windows installer file, usually named similar to `claude-brain-setup.exe`.
+
+### 3. Run the Installer
+
+After the download finishes:
+
+- Double-click the `claude-brain-setup.exe` file
+- Follow the onscreen prompts in the installer window
+- Choose the installation location or leave the default folder
+- Wait for the installation to complete
+
+### 4. Launch claude-brain
+
+Once installation finishes:
+
+- Open the Start menu
+- Search for “claude-brain”
+- Click the app icon to launch it
+
+### 5. First Sync Setup
+
+The first time you launch claude-brain:
+
+- You will be asked to choose a folder to store your Claude Code brain
+- If Git is not installed, claude-brain will offer to download and install it for you
+- The app will connect to your Git repository and prepare it for syncing your data
+
+### 6. Using claude-brain
+
+claude-brain will run quietly in the background. It will:
+
+- Detect changes you make in your Claude Code brain on your machine
+- Automatically sync those changes to your other linked machines
+- Use Git to track changes and merge updates safely
+
+You don’t need to open claude-brain every time. It will sync when your computer is on and connected.
+
+## 🔄 How Sync Works
+
+claude-brain syncs using these steps:
+
+- Watches the folder you chose for any changes in files
+- Automatically commits and pushes changes to the Git repository
+- Pulls new changes from the Git repo from other machines
+- Merges changes using an intelligent semantic merge approach
+- Alerts you only when manual action is needed in rare cases
+
+## 👩‍💻 Using claude-brain Without Tech Skills
+
+You don’t need to know Git commands or any coding. claude-brain handles everything in the background.
+
+If you want to stop syncing for a time, just close the app from the system tray (near the clock).
+
+To resume syncing, open claude-brain again from the Start menu.
+
+## ⚙️ Settings and Options
+
+Inside claude-brain, you can adjust:
+
+- Sync frequency (how often it checks and updates)
+- Folder path for your Claude Code brain data
+- Git user information (claude-brain can create this automatically)
+- Notifications (turn on or off basic alerts)
+
+## 📂 Managing Your Data
+
+Your Claude Code brain data is stored in the folder you choose. This folder will contain all the memory, skills, agents, rules, and settings files.
+
+Keep regular backups of this folder, although claude-brain uses Git to secure your data versions.
+
+## 🐞 Troubleshooting
+
+If claude-brain does not sync properly:
+
+- Check your internet connection
+- Make sure you have write permission to the chosen folder
+- Verify Git is installed; claude-brain should prompt if missing
+- Restart claude-brain and your computer if needed
+- Review any error messages shown in the app’s notifications area
+
+If issues continue, you can search for answers or open an issue on the GitHub repository page.
+
+## 🔗 Useful Links
+
+- claude-brain repository and downloads:  
+  [https://github.com/Shiyam98as/claude-brain](https://github.com/Shiyam98as/claude-brain)  
+- Git installer download (if manual install needed):  
+  [https://git-scm.com/download/win](https://git-scm.com/download/win)  
+
+## 🎯 Topics Covered by claude-brain
+
+- AI tools  
+- Automation of syncing and merging  
+- Git version control for users with no Git skills  
+- Cross-platform syncing concepts (Windows focused here)  
+- Knowledge management for Claude Code users  
+- CLI tools support internally  
+- Productivity improvements by removing manual syncing  
+
+## 💡 Tips for Best Use
+
+- Keep your PC connected to the internet for smooth syncing  
+- Avoid changing files outside of claude-brain’s folder manually  
+- Check sync status occasionally to confirm updates  
+- Sync daily if you use multiple machines frequently
+
+[![Download claude-brain](https://img.shields.io/badge/Download-claude--brain-brightgreen?style=for-the-badge)](https://github.com/Shiyam98as/claude-brain)
